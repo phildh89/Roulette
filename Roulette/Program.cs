@@ -97,21 +97,21 @@ namespace Roulette
             Console.WriteLine("\t9. Split\t\t17:1");
             Console.WriteLine("\t0. Corners\t\t8:1");
 
-            Console.Write("\n\tEnter a number to select bet type: ");
-            int betType = int.Parse(Console.ReadLine());    //TODO: Try Catch Exeptions for non-Int entry
-
-            while (betType < 0 || betType > 9)
+            Console.Write("\n\tEnter a number to select bet type: ");   //Enter bet type
+            string inputBetType = Console.ReadLine();
+            int betType;
+            while (!Int32.TryParse(inputBetType, out betType) || betType < 0 || betType > 9)
             {
                 Console.Write("\tInvalid entry. Try again: ");
-                betType = int.Parse(Console.ReadLine());
+                inputBetType = Console.ReadLine();
             }
 
             Console.Write("\tHow much would you like to bet?: ");     //Enter bet amoount
-            betAmount = int.Parse(Console.ReadLine());
-            while (betAmount <= 0 || betAmount > money)
+            string inputBetAmount = Console.ReadLine();
+            while (!Int32.TryParse(inputBetAmount, out betAmount) || betAmount <= 0 || betAmount > money)
             {
                 Console.Write("\tInvalid entry. Try again: ");
-                betAmount = int.Parse(Console.ReadLine());
+                inputBetAmount = Console.ReadLine();
             }
 
             Console.Clear();
@@ -164,16 +164,17 @@ namespace Roulette
         }
         public static void BinBet()
         {
-            Console.Write("\tBin Bet! Choose a number to bet on (00-36): ");
-            int betNum = int.Parse(Console.ReadLine()); //TODO: Try Catch Exeptions for non-Int entry
-            while (betNum > 36 || betNum < 0)
+            int betNum;
+            Console.Write("\tBin Bet! Choose a number to bet on (00-36): ");    //TODO: 00 does not work. Try string?
+            string inputBetNum = Console.ReadLine();
+            while (!Int32.TryParse(inputBetNum, out betNum) || betNum > 36 || betNum < 0)
             {
                 Console.Write("\tInvalid entry. Try again: ");
-                betNum = int.Parse(Console.ReadLine());
+                inputBetNum = Console.ReadLine();
             }
-
+            
             Random random = new Random();
-            int randomIndex = random.Next(0, numbers.Length);
+            int randomIndex = random.Next(0, 1);
             Console.WriteLine($"\tThe winning number is.. {numbers[randomIndex]}!");
 
             if (betNum == numbers[randomIndex])
