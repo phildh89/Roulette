@@ -174,7 +174,7 @@ namespace Roulette
             }
             
             Random random = new Random();
-            int randomIndex = random.Next(0, 1);
+            int randomIndex = random.Next(0, 39); //TODO: Change index back. Create method to call instead of typing in every method
             Console.WriteLine($"\tThe winning number is.. {numbers[randomIndex]}!");
 
             if (betNum == numbers[randomIndex])
