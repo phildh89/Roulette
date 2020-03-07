@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 
 namespace RouletteOutcome
 {
@@ -20,40 +19,26 @@ namespace RouletteOutcome
 
         static void Main(string[] args)
         {
-            string reroll = "";
-            do
-            {
-                StartUp();
-                Console.Write("\n\n\tEnter 'y' to reroll:");
-                reroll = Console.ReadLine().ToLower();
-                Console.Clear();
-            } while (reroll == "y");
 
-
-        }
-        public static void StartUp()
-        {
-            string winningString = RandomNum();
-            Console.WriteLine($"\tThe winning number is {winningString}!");
+            string winningNum = RandomNum();
+            Console.WriteLine($"\tThe winning number is {winningNum}!");
             Console.WriteLine("\n\tWinning bets are as follows:");
-            Console.WriteLine($"\t\tBin bet: {winningString}");
-            if (winningString == "0" || winningString == "00")
+            Console.WriteLine($"\t\tBin bet: {winningNum}");
+            if (winningNum == "0" || winningNum == "00")
             {
                 Console.WriteLine("\t\tSplit bet: 0/00");
             }
             else
             {
-                int winningInt = Convert.ToInt32(winningString);
-
-                Console.WriteLine($"\t\tEven or Odd: {EvenOrOdd(winningInt)}");
-                Console.WriteLine($"\t\tRed or Black: {RedOrBlack(winningInt)}");
-                Console.WriteLine($"\t\tLows or Highs: {LowOrHigh(winningInt)}");
-                Console.WriteLine($"\t\tDozens: {DozenBet(winningInt)}");
-                Console.WriteLine($"\t\tColumns: {ColumnBet(winningInt)}");
-                Console.WriteLine($"\t\tStreet: {StreetBet(winningInt)}");
-                Console.WriteLine($"\t\tDouble Row: {DoubleRow(winningInt)}");
-                Console.WriteLine($"\t\tSplit Bet: {SplitBet(winningInt)}");
-                Console.WriteLine($"\t\tCorner Bet: {CornerBet(winningInt)}");
+                Console.WriteLine($"\t\tEven or Odd: {EvenOrOdd(winningNum)}");
+                Console.WriteLine($"\t\tRed or Black: {RedOrBlack(winningNum)}");
+                Console.WriteLine($"\t\tLows or Highs: {LowOrHigh(winningNum)}");
+                Console.WriteLine($"\t\tDozens: {DozenBet(winningNum)}");
+                Console.WriteLine($"\t\tColumns: {ColumnBet(winningNum)}");
+                Console.WriteLine($"\t\tStreet: {StreetBet(winningNum)}");
+                Console.WriteLine($"\t\tDouble Row: {DoubleRow(winningNum)}");
+                Console.WriteLine($"\t\tSplit Bet: {SplitBet(winningNum)}");
+                //Console.WriteLine($"\t\tCorners
             }
         }
         public static string RandomNum()
@@ -63,95 +48,106 @@ namespace RouletteOutcome
 
             return numbers[randomIndex];
         }
-        public static string EvenOrOdd(int input)
+        public static string EvenOrOdd(string input)
         {
-            if (input % 2 == 1)
+            int inputNum = Convert.ToInt32(input);
+
+            if (inputNum % 2 == 1)
             {
                 return "Odd";
             }
             return "Even";
         }
-        public static string RedOrBlack(int input)
+        public static string RedOrBlack(string input)
         {
+            int inputNum = Convert.ToInt32(input);
+
             for (int i = 0; i < blackNum.Length; i++)
             {
-                if (blackNum[i] == input)
+                if (blackNum[i] == inputNum)
                 {
                     return "Black";
                 }
             }
             return "Red";
         }
-        public static string LowOrHigh(int input)
+        public static string LowOrHigh(string input)
         {
-            if (input < 19)
+            int inputNum = Convert.ToInt32(input);
+
+            if (inputNum < 19)
             {
                 return "Low (1-18)";
             }
              
                 return "High (19-36)";   
         }
-        public static string DozenBet(int input)
+        public static string DozenBet(string input)
         {
-            if (input < 13)
+            int inputNum = Convert.ToInt32(input);
+
+            if (inputNum < 13)
             {
                 return "1st Dozen (1-12)";
             }
-            else if (input > 24)
+            else if (inputNum > 24)
             {
                 return "3rd Dozen (25-36)";
             }
             return "2nd Dozen (13-24)";
 
         }
-        public static string ColumnBet(int input)
+        public static string ColumnBet(string input)
         {
-            if (input % 3 == 1)
+            int inputNum = Convert.ToInt32(input);
+            if (inputNum % 3 == 1)
             {
                 return "1st Column";
             }
-            else if (input % 3 == 2)
+            else if (inputNum % 3 == 2)
             {
                 return "2nd Column";
             }
             return "3rd Column";
 
         }
-        public static string StreetBet(int input)
+        public static string StreetBet(string input)
         {
-            if (input % 3 == 0)
+            int inputNum = Convert.ToInt32(input);
+            if (inputNum % 3 == 0)
             {
-                return $"{input - 2}, {input - 1}, {input}";
+                return $"{inputNum - 2}, {inputNum - 1}, {inputNum}";
             }
-            else if ((input + 1) % 3 == 0)
+            else if ((inputNum + 1) % 3 == 0)
             {
-                return $"{input - 1}, {input}, {input + 1}";
+                return $"{inputNum - 1}, {inputNum}, {inputNum +1}";
             }
-            return $"{input}, {input + 1}, {input + 2}";
+            return $"{inputNum}, {inputNum + 1}, {inputNum + 2}";
 
         }
-        public static string DoubleRow(int input)
+        public static string DoubleRow(string input)
         {
-            string result = "(";
+            int inputNum = Convert.ToInt32(input);
+            string resultString = "(";
             int firstSet;    
             int secondSet;
 
-            if (input % 3 == 0)     //column 3
+            if (inputNum % 3 == 0)
             {
-                firstSet = input - 5;
-                secondSet = input - 2;
+                firstSet = inputNum - 5;
+                secondSet = inputNum - 2;
             }
-            else                    //column 1 and 2
+            else
             {
-                firstSet = input - ((input % 3) + 2);
-                secondSet = input - ((input % 3) -1);
+                firstSet = inputNum - ((inputNum % 3) + 2);
+                secondSet = inputNum - ((inputNum % 3) -1);
             }
 
-            if (input <= 3)                       //These two will return only 1 bet option
+            if (inputNum <=3)                       //These two will return only 1 bet option
             {
                 return "(1, 2, 3, 4, 5, 6)";
             }
-            else if (input >= 34)
+            else if (inputNum >= 34)
             {
                 return "(31, 32, 33, 34, 35, 36)";
             }
@@ -160,10 +156,10 @@ namespace RouletteOutcome
             {
                 if (i == 5)
                 {
-                    result += $"{firstSet}) and (";
+                    resultString += $"{firstSet}) and (";
                     break;
                 }
-                result += $"{firstSet}, ";
+                resultString += $"{firstSet}, ";
                 firstSet++;
             }
 
@@ -171,77 +167,17 @@ namespace RouletteOutcome
             {
                 if (i == 5)
                 {
-                    result += $"{secondSet})";
+                    resultString += $"{secondSet})";
                     break;
                 }
-                result += $"{secondSet}, ";
+                resultString += $"{secondSet}, ";
                 secondSet++;
             }
-            return result;
+            return resultString;
         }
-        public static string SplitBet(int input)
+        public static string SplitBet(string input)
         {
-            int[][] columnArr = new int[][]
-            {
-                new int[] { -3, -1, 3 },    //mod 0 (column 3)
-                new int[] { -3, 1, 3 },     //mod 1 (column 1)
-                new int[] { -3, -1, 1, 3 }  //mod 2 (column 2)
-            };
-            int columnNum = input % 3;
-            string result = "";
 
-            for (int i = 0; i < columnArr[columnNum].Length; i++)       //length of arr will depend on the column
-            {
-                if (input + columnArr[columnNum][i] > 36 || input + columnArr[columnNum][i] < 1)
-                {
-                    continue;
-                }
-                result += $"{input}/{input + columnArr[columnNum][i]}   ";
-            }
-
-            return result;
-        }
-        public static string CornerBet(int input)
-        {
-            int[][,] columnArr = new int[3][,]              //int[column][corner,num]
-            {
-                new int[,] { {-1, 0, 2, 3}, {-4, -3, -1, 0} },                                    //mod 0 (column 3)
-                new int[,] { {-3,-2, 0, 1}, {0, 1, 3, 4} },                                       //mod 1 (column 1)
-                new int[,] { { -3, -2, 0, 1}, {0, 1, 3, 4}, { -1, 0, 2, 3}, { -4, -3, -1, 0} }    //mod 2 (column 2)
-            };
-            int columnNum = input % 3;
-            bool finishedArr = false;
-            string result = "";
-
-            for (int i = 0; i < columnArr[columnNum].GetLength(0); i++)
-            {
-                string temp = "";
-                for (int k = 0; k < 4; k++)
-                {
-                    int nextNum = input + columnArr[columnNum][i, k];
-                    if (nextNum > 36 || nextNum < 1)
-                    {
-                        temp = "";
-                        break;
-                    }
-                    else if (k == 2)
-                    {
-                        finishedArr = true;
-                    }
-                    if (k == 3)
-                    {
-                        temp += $"{input + columnArr[columnNum][i, k]}";
-                        break;
-                    }
-                    temp += $"{input + columnArr[columnNum][i, k]}/";
-                }
-                if (finishedArr == true)
-                {
-                    result += $"{temp}   ";
-                }
-            }
-
-            return result;
         }
     }
 }
